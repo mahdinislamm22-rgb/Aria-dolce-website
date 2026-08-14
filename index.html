@@ -1,1137 +1,701 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Aria Dolce · Bar & Pasticceria | Roma</title>
-    <meta name="description" content="Aria Dolce · Bar & Pasticceria a Roma. Cornetti artigianali e dolci freschi, ogni giorno dalle 06:00 alle 23:00.">
+    <title>Aria Dolce · Bar &amp; Pasticceria | Roma</title>
+    <meta name="description" content="Aria Dolce · Bar &amp; Pasticceria a Roma. Cornetti artigianali, dolci freschi e caffè espresso ogni mattina.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --cream: #fffaf3;
-            --cream-dark: #f5eadc;
-            --brown: #5a3828;
-            --brown-dark: #3b241b;
-            --gold: #c99a5b;
-            --text: #3f3029;
-            --white: #ffffff;
+            --cream: #f4e9d8;
+            --cream-soft: #efe0c8;
+            --paper: #fffaf1;
+            --espresso: #251811;
+            --espresso-deep: #140d09;
+            --cacao: #6e4b34;
+            --caramel: #b1743f;
+            --gold: #d3a463;
+            --ink: #2a1c13;
+            --line: rgba(37, 24, 17, 0.16);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
-            font-family: "DM Sans", sans-serif;
-            color: var(--text);
+            font-family: "Manrope", sans-serif;
             background: var(--cream);
-            line-height: 1.6;
+            color: var(--ink);
+            line-height: 1.5;
         }
+        img { max-width: 100%; display: block; }
+        a { text-decoration: none; color: inherit; }
+        button, input, textarea { font: inherit; }
 
-        a {
-            text-decoration: none;
-            color: inherit;
+        .container { width: min(1280px, 91%); margin: 0 auto; }
+
+        .grain { position: relative; }
+        .grain::before {
+            content: "";
+            position: absolute; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+            mix-blend-mode: overlay;
+            opacity: 0.6;
         }
-
-        /* =========================
-           NAVBAR
-        ========================= */
 
         .navbar {
-            position: fixed;
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 18px 6%;
+            z-index: 50;
+            background: rgba(20, 13, 9, 0.96);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .nav-inner {
+            min-height: 88px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            transition: 0.3s ease;
+            justify-content: space-between;
+            gap: 20px;
         }
 
-        .navbar.scrolled {
-            background: rgba(255, 250, 243, 0.96);
-            backdrop-filter: blur(12px);
-            box-shadow: 0 4px 25px rgba(59, 36, 27, 0.08);
-        }
+        .brand { display: inline-flex; align-items: center; gap: 14px; color: var(--cream); }
 
-        .logo {
-            font-family: "Playfair Display", serif;
-            font-size: 25px;
-            font-weight: 700;
-            color: var(--white);
-            transition: 0.3s;
+        .brand-mark {
+            width: 62px; height: 62px;
+            border-radius: 50%;
+            border: 1px solid rgba(211,164,99,0.55);
+            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.06);
+            flex-shrink: 0;
         }
+        .brand-mark img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 
-        .navbar.scrolled .logo {
-            color: var(--brown);
+        .brand-name {
+            font-family: "Fraunces", serif;
+            font-weight: 600;
+            font-size: clamp(1.7rem, 2vw, 2.1rem);
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+        .brand-tag {
+            display: block;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            font-size: 0.6rem;
+            color: var(--gold);
+            margin-top: 6px;
+            font-weight: 600;
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 34px;
             list-style: none;
+            gap: 30px;
+            color: rgba(244,233,216,0.86);
+            font-size: 0.95rem;
         }
-
-        .nav-links a {
-            color: var(--white);
-            font-size: 14px;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .navbar.scrolled .nav-links a {
-            color: var(--brown);
-        }
-
-        .nav-links a:hover {
-            color: var(--gold);
-        }
+        .nav-links a { transition: color 0.2s ease; position: relative; }
+        .nav-links a:hover { color: var(--gold); }
 
         .nav-button {
-            padding: 11px 20px;
-            border-radius: 30px;
-            background: var(--gold);
-            color: white !important;
+            background: var(--caramel);
+            color: var(--paper);
+            border-radius: 999px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 700;
         }
-
-        .nav-button:hover {
-            background: var(--brown);
-        }
+        .nav-button:hover { background: var(--gold); color: var(--espresso-deep); }
 
         .menu-toggle {
             display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 28px;
+            background: transparent;
+            border: 1px solid rgba(244,233,216,0.35);
+            color: var(--cream);
+            width: 42px; height: 42px;
+            border-radius: 50%;
+            font-size: 1.4rem;
             cursor: pointer;
         }
 
-        .navbar.scrolled .menu-toggle {
-            color: var(--brown);
-        }
-
-        /* =========================
-           HERO
-        ========================= */
-
         .hero {
-            min-height: 100vh;
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+            background: linear-gradient(135deg, #2c1d18 0%, #4d3328 42%, #261914 100%);
             overflow: hidden;
-
-            /*
-            IMMAGINE HERO:
-            In futuro puoi sostituire il background con:
-            background-image: url("images/hero.jpg");
-            */
-
-            background:
-                linear-gradient(
-                    rgba(59, 36, 27, 0.68),
-                    rgba(59, 36, 27, 0.58)
-                ),
-                linear-gradient(135deg, #9b7659, #4d3023);
+            padding: 92px 0 0;
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 900px;
-            padding: 40px 20px;
-            color: white;
-        }
-
-        .hero-small {
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 22px;
-            color: #f5d7ad;
-        }
-
-        .hero h1 {
-            font-family: "Playfair Display", serif;
-            font-size: clamp(55px, 9vw, 105px);
-            line-height: 0.98;
-            margin-bottom: 25px;
-            font-weight: 700;
-        }
-
-        .hero h1 span {
-            color: #e6bd82;
-        }
-
-        .hero-tagline {
-            font-family: "Playfair Display", serif;
-            font-size: clamp(20px, 3vw, 30px);
-            margin-bottom: 38px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1.15fr 0.95fr;
             align-items: center;
-            justify-content: center;
-            padding: 14px 26px;
-            border-radius: 50px;
-            font-size: 14px;
-            font-weight: 700;
-            transition: 0.3s;
+            gap: 50px;
         }
 
-        .btn-primary {
-            background: var(--gold);
-            color: white;
-        }
+        .hero-copy { color: var(--cream); padding-bottom: 70px; }
 
-        .btn-primary:hover {
-            background: white;
-            color: var(--brown);
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            border: 1px solid rgba(255,255,255,0.7);
-            color: white;
-        }
-
-        .btn-outline:hover {
-            background: white;
-            color: var(--brown);
-        }
-
-        .scroll-down {
-            position: absolute;
-            bottom: 28px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 12px;
-            letter-spacing: 2px;
+        .eyebrow {
+            letter-spacing: 0.3em;
             text-transform: uppercase;
-            opacity: 0.8;
-        }
-
-        /* =========================
-           GENERIC
-        ========================= */
-
-        section {
-            padding: 100px 6%;
-        }
-
-        .section-label {
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 12px;
+            font-size: 0.7rem;
             font-weight: 700;
             color: var(--gold);
-            margin-bottom: 14px;
+            margin-bottom: 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .eyebrow::before { content: "✦"; font-size: 0.75rem; }
+
+        .hero-title {
+            font-family: "Fraunces", serif;
+            font-weight: 600;
+            font-size: clamp(3.1rem, 5.4vw, 5.8rem);
+            line-height: 0.96;
+            letter-spacing: -0.02em;
+            margin-bottom: 26px;
+            color: var(--paper);
+        }
+        .hero-title em {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--gold);
         }
 
-        .section-title {
-            font-family: "Playfair Display", serif;
-            font-size: clamp(38px, 5vw, 60px);
-            line-height: 1.1;
-            color: var(--brown);
-            margin-bottom: 25px;
+        .hero-text {
+            color: rgba(244,233,216,0.72);
+            max-width: 480px;
+            font-size: 1.15rem;
+            line-height: 1.6;
+            margin-bottom: 34px;
         }
 
-        .section-text {
-            color: #6b5a50;
-            max-width: 650px;
-            font-size: 17px;
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            background: transparent;
+            border: 1px solid rgba(244,233,216,0.4);
+            color: var(--cream);
+            border-radius: 999px;
+            padding: 0.9rem 1.7rem 0.9rem 1.9rem;
+            font-weight: 600;
+            transition: border-color 0.2s ease, background 0.2s ease;
+        }
+        .hero-cta:hover { border-color: var(--gold); background: rgba(211,164,99,0.08); }
+        .hero-cta .arrow {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            background: var(--gold);
+            color: var(--espresso-deep);
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
         }
 
-        /* =========================
-           ABOUT
-        ========================= */
+        .hero-visual { position: relative; display: flex; justify-content: center; }
+
+        .hero-photo {
+            width: min(100%, 460px);
+            height: min(74vh, 600px);
+            object-fit: cover;
+            border-radius: 220px 220px 6px 6px;
+            border: 1px solid rgba(244,233,216,0.16);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+
+        .hero-badge {
+            position: absolute;
+            left: -6px;
+            bottom: 40px;
+            width: 118px; height: 118px;
+            border-radius: 50%;
+            background: var(--caramel);
+            border: 2px dashed rgba(255,250,241,0.5);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center;
+            color: var(--paper);
+            box-shadow: 0 18px 34px rgba(0,0,0,0.35);
+            transform: rotate(-8deg);
+        }
+        .hero-badge span {
+            font-size: 0.56rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255,250,241,0.85);
+        }
+        .hero-badge strong {
+            font-family: "Fraunces", serif;
+            font-size: 2rem;
+            line-height: 1;
+            margin-top: 6px;
+        }
 
         .about {
-            background: var(--cream);
+            background: var(--espresso-deep);
+            color: var(--paper);
+            position: relative;
         }
-
-        .about-grid {
-            max-width: 1200px;
-            margin: auto;
+        .about-inner {
+            position: relative; z-index: 1;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 54px;
             align-items: center;
+            padding: 96px 0 96px;
         }
-
-        .about-image {
-            min-height: 550px;
-            border-radius: 8px;
-            background:
-                linear-gradient(
-                    rgba(90,56,40,0.1),
-                    rgba(90,56,40,0.1)
-                ),
-                #dbc2a5;
-
-            /*
-            IMMAGINE:
-            background-image: url("images/about.jpg");
-            */
-            background-size: cover;
-            background-position: center;
+        .story-title {
+            font-family: "Fraunces", serif;
+            font-weight: 500;
+            font-style: italic;
+            font-size: clamp(2.2rem, 3.6vw, 3.4rem);
+            line-height: 1.18;
+            letter-spacing: -0.01em;
+            color: var(--paper);
+            max-width: 620px;
         }
+        .story-title strong { font-style: normal; font-weight: 600; color: var(--gold); }
 
-        .about-content {
-            padding-right: 30px;
+        .story-card {
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.35);
         }
+        .story-card img { width: 100%; height: 520px; object-fit: cover; }
 
-        .about-content p {
-            margin-bottom: 20px;
+        .gallery { background: var(--espresso); padding: 96px 0 106px; }
+        .gallery-head {
+            display: flex; align-items: end; justify-content: space-between;
+            gap: 16px; margin-bottom: 34px;
         }
-
-        .highlight {
-            margin-top: 30px;
-            padding: 22px 25px;
-            border-left: 3px solid var(--gold);
-            background: var(--cream-dark);
-            font-family: "Playfair Display", serif;
-            font-size: 20px;
-            color: var(--brown);
+        .gallery-title {
+            font-family: "Fraunces", serif;
+            font-weight: 600;
+            font-style: italic;
+            font-size: clamp(2.6rem, 4vw, 4.4rem);
+            color: var(--paper);
+            letter-spacing: -0.01em;
         }
-
-        /* =========================
-           IMAGE GALLERY
-        ========================= */
-
-        .gallery {
-            background: var(--brown-dark);
-            color: white;
+        .gallery-sub {
+            color: rgba(244,233,216,0.6);
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            font-weight: 600;
         }
-
-        .gallery-header {
-            max-width: 1200px;
-            margin: 0 auto 45px;
-        }
-
-        .gallery .section-title {
-            color: white;
-        }
-
         .gallery-grid {
-            max-width: 1200px;
-            margin: auto;
             display: grid;
-            grid-template-columns: 1.4fr 1fr 1fr;
-            grid-template-rows: 260px 260px;
-            gap: 14px;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 18px;
         }
-
-        .gallery-item {
-            border-radius: 5px;
-            background: #755340;
+        .frame {
+            background: var(--paper);
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 22px 46px rgba(0,0,0,0.35);
+        }
+        .frame .photo {
+            height: 330px;
+            border-radius: 2px;
             background-size: cover;
             background-position: center;
         }
+        .frame.large { grid-row: span 2; }
+        .frame.large .photo { height: 100%; min-height: 700px; }
 
-        .gallery-item:first-child {
-            grid-row: span 2;
-        }
-
-        /*
-        QUANDO AVRAI LE FOTO:
-
-        .gallery-item:nth-child(1) {
-            background-image: url("images/photo1.jpg");
-        }
-
-        .gallery-item:nth-child(2) {
-            background-image: url("images/photo2.jpg");
-        }
-
-        ecc.
-        */
-
-        /* =========================
-           EXPERIENCE
-        ========================= */
-
-        .experience {
-            background: var(--cream-dark);
-        }
-
-        .experience-inner {
-            max-width: 1200px;
-            margin: auto;
-            text-align: center;
-        }
-
-        .experience-inner .section-text {
-            margin: 0 auto 55px;
-        }
-
-        .features {
+        .contact { background: var(--cream); padding: 100px 0 110px; }
+        .contact-wrap {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
+            grid-template-columns: 0.95fr 1.05fr;
+            gap: 56px;
+            align-items: start;
         }
-
-        .feature {
-            background: var(--cream);
-            padding: 38px 25px;
-            border-radius: 8px;
+        .contact-heading {
+            font-family: "Fraunces", serif;
+            font-weight: 600;
+            font-size: clamp(3rem, 5vw, 5.2rem);
+            line-height: 0.96;
+            letter-spacing: -0.02em;
+            color: var(--espresso);
+            margin-top: 10px;
         }
+        .contact-heading em { font-style: italic; font-weight: 400; color: var(--caramel); }
 
-        .feature-icon {
-            width: 55px;
-            height: 55px;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: #ead6bb;
-            color: var(--brown);
-            font-size: 23px;
-        }
-
-        .feature h3 {
-            font-family: "Playfair Display", serif;
-            color: var(--brown);
-            font-size: 23px;
-            margin-bottom: 10px;
-        }
-
-        .feature p {
-            color: #75645a;
-            font-size: 14px;
-        }
-
-        /* =========================
-           INFO / CONTACT
-        ========================= */
-
-        .contact {
-            background: var(--cream);
-        }
-
-        .contact-grid {
-            max-width: 1100px;
-            margin: auto;
+        .contact-list {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 70px;
-            align-items: center;
+            gap: 16px;
+            margin-top: 30px;
+            max-width: 480px;
         }
-
-        .contact-info {
+        .contact-row {
             display: flex;
-            flex-direction: column;
-            gap: 25px;
-            margin-top: 35px;
+            align-items: baseline;
+            gap: 10px;
         }
-
-        .contact-item {
-            display: flex;
-            gap: 18px;
-            align-items: flex-start;
-        }
-
-        .contact-icon {
-            width: 45px;
-            height: 45px;
-            flex-shrink: 0;
-            border-radius: 50%;
-            background: var(--cream-dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--brown);
-        }
-
-        .contact-item strong {
-            display: block;
-            color: var(--brown);
-            margin-bottom: 3px;
-        }
-
-        .contact-item span,
-        .contact-item a {
-            color: #75645a;
-            font-size: 15px;
-        }
-
-        .contact-item a:hover {
-            color: var(--gold);
-        }
-
-        .map-placeholder {
-            min-height: 400px;
-            border-radius: 8px;
-            background:
-                linear-gradient(
-                    rgba(90,56,40,0.15),
-                    rgba(90,56,40,0.15)
-                ),
-                #d8c3a8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 30px;
-        }
-
-        .map-placeholder-content {
-            color: var(--brown);
-        }
-
-        .map-placeholder-content h3 {
-            font-family: "Playfair Display", serif;
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-
-        /* =========================
-           INSTAGRAM CTA
-        ========================= */
-
-        .instagram {
-            padding: 80px 6%;
-            background: #ead6bb;
-            text-align: center;
-        }
-
-        .instagram h2 {
-            font-family: "Playfair Display", serif;
-            color: var(--brown);
-            font-size: clamp(35px, 5vw, 55px);
-            margin-bottom: 15px;
-        }
-
-        .instagram p {
-            color: #6b574a;
-            margin-bottom: 25px;
-        }
-
-        .instagram-button {
-            display: inline-flex;
-            padding: 13px 25px;
-            border-radius: 40px;
-            background: var(--brown);
-            color: white;
+        .contact-row .label {
+            font-size: 0.68rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--cacao);
             font-weight: 700;
-            font-size: 14px;
-            transition: 0.3s;
+            white-space: nowrap;
+        }
+        .contact-row .leader {
+            flex: 1;
+            border-bottom: 1.5px dotted var(--line);
+            transform: translateY(-4px);
+        }
+        .contact-row .value {
+            font-size: 1.02rem;
+            color: var(--ink);
+            white-space: nowrap;
+            font-weight: 500;
         }
 
-        .instagram-button:hover {
-            background: var(--gold);
+        .map-box {
+            width: 100%; height: 340px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            margin-top: 32px;
+            filter: sepia(12%) saturate(85%);
         }
 
-        /* =========================
-           FOOTER
-        ========================= */
-
-        footer {
-            background: var(--brown-dark);
-            color: rgba(255,255,255,0.75);
-            padding: 35px 6%;
+        .cta-text {
+            font-family: "Fraunces", serif;
+            font-size: clamp(1.35rem, 2vw, 1.7rem);
+            font-style: italic;
+            font-weight: 400;
+            color: var(--cacao);
+            margin: 6px 0 30px;
+            max-width: 520px;
+            line-height: 1.4;
         }
 
+        .contact-form { display: grid; gap: 24px; }
+        .field { display: grid; gap: 9px; }
+        .field label {
+            letter-spacing: 0.24em; text-transform: uppercase;
+            font-size: 0.7rem; color: var(--cacao); font-weight: 700;
+        }
+        .field input, .field textarea {
+            width: 100%; background: transparent; border: none;
+            border-bottom: 1px solid var(--line);
+            padding: 10px 0 12px; font-size: 1.08rem; color: var(--ink);
+            outline: none; resize: vertical;
+            transition: border-color 0.2s ease;
+        }
+        .field input:focus, .field textarea:focus { border-color: var(--caramel); }
+        .field input::placeholder, .field textarea::placeholder { color: rgba(42,28,19,0.4); }
+
+        .submit-row { display: flex; justify-content: flex-end; margin-top: 4px; }
+        .submit-btn {
+            border: none; background: var(--espresso); color: var(--paper);
+            border-radius: 999px; padding: 0.95rem 2rem 0.95rem 1.6rem;
+            font-weight: 700; font-size: 1.02rem;
+            display: inline-flex; align-items: center; gap: 14px;
+            cursor: pointer; box-shadow: 0 18px 30px rgba(37,24,17,0.2);
+            transition: background 0.2s ease;
+        }
+        .submit-btn:hover { background: var(--caramel); }
+        .submit-btn .arrow {
+            width: 34px; height: 34px; border-radius: 50%;
+            display: inline-flex; align-items: center; justify-content: center;
+            background: var(--gold); color: var(--espresso-deep);
+            font-size: 1.3rem; line-height: 1;
+        }
+
+        footer { background: var(--espresso-deep); color: var(--paper); }
         .footer-inner {
-            max-width: 1200px;
-            margin: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
+            display: grid;
+            grid-template-columns: 1.05fr 0.7fr 1.2fr;
+            gap: 44px;
+            padding: 76px 0 32px;
+        }
+        .footer-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+        .footer-info {
+            font-size: 1rem; color: rgba(244,233,216,0.62);
+            max-width: 400px; line-height: 1.7;
+        }
+        .footer-social {
+            display: inline-flex; align-items: center; gap: 12px;
+            margin-top: 18px; color: var(--gold); font-size: 1.05rem;
+        }
+        .footer-heading {
+            color: rgba(244,233,216,0.5); letter-spacing: 0.26em;
+            text-transform: uppercase; font-size: 0.7rem;
+            margin-bottom: 18px; font-weight: 700;
+        }
+        .footer-links { list-style: none; display: grid; gap: 10px; color: rgba(244,233,216,0.85); font-size: 0.98rem; }
+        .footer-links a:hover { color: var(--gold); }
+        .footer-contact { display: grid; gap: 10px; color: rgba(244,233,216,0.85); font-size: 0.98rem; }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding: 20px 0 28px;
+            display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap;
+            color: rgba(244,233,216,0.45); font-size: 0.66rem;
+            letter-spacing: 0.18em; text-transform: uppercase;
         }
 
-        .footer-logo {
-            font-family: "Playfair Display", serif;
-            color: white;
-            font-size: 22px;
+        @media (max-width: 1000px) {
+            .hero-inner, .about-inner, .contact-wrap, .footer-inner { grid-template-columns: 1fr; }
+            .hero-copy { padding-bottom: 40px; }
+            .gallery-grid { grid-template-columns: 1fr 1fr; }
+            .frame.large { grid-row: auto; }
+            .frame.large .photo { min-height: 340px; }
+            .social-inner { grid-template-columns: 1fr; }
         }
 
-        .footer-copy {
-            font-size: 12px;
-        }
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 800px) {
-
-            .navbar {
-                padding: 16px 5%;
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
+        @media (max-width: 720px) {
             .nav-links {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--cream);
-                padding: 25px;
-                display: none;
-                flex-direction: column;
-                gap: 20px;
-                box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+                position: absolute; top: 100%; left: 0; width: 100%;
+                background: rgba(20,13,9,0.98);
+                border-top: 1px solid rgba(255,255,255,0.08);
+                flex-direction: column; align-items: flex-start; gap: 16px;
+                padding: 20px; display: none;
             }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-links a {
-                color: var(--brown) !important;
-            }
-
-            .hero {
-                min-height: 90vh;
-            }
-
-            section {
-                padding: 75px 6%;
-            }
-
-            .about-grid,
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: 45px;
-            }
-
-            .about-content {
-                padding-right: 0;
-            }
-
-            .about-image {
-                min-height: 400px;
-                order: 2;
-            }
-
-            .features {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery-grid {
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: 220px 220px 220px;
-            }
-
-            .gallery-item:first-child {
-                grid-row: span 1;
-                grid-column: span 2;
-            }
-
-            .map-placeholder {
-                min-height: 300px;
-            }
-
-            .footer-inner {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-
-            .hero h1 {
-                font-size: 52px;
-            }
-
-            .hero-tagline {
-                font-size: 20px;
-            }
-
-            .gallery-grid {
-                display: grid;
-                grid-template-columns: 1fr;
-                grid-template-rows: repeat(5, 230px);
-            }
-
-            .gallery-item:first-child {
-                grid-column: auto;
-            }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
+            .hero-title { font-size: clamp(2.9rem, 13vw, 4rem); }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .frame .photo { height: 300px; }
+            .story-card img { height: 380px; }
+            .contact-row { flex-wrap: wrap; }
+            .contact-row .leader { display: none; }
+            .footer-bottom { letter-spacing: 0.06em; }
         }
     </style>
 </head>
-
 <body>
 
-    <!-- =========================
-         NAVBAR
-    ========================== -->
+    <header class="navbar">
+        <div class="container nav-inner">
+            <a href="#home" class="brand" aria-label="Aria Dolce home">
+                <span class="brand-mark">
+                    <img src="images/Logo.jpg.jpeg" alt="Logo Aria Dolce">
+                </span>
+                <span>
+                    <span class="brand-name">Aria Dolce</span>
+                    <span class="brand-tag">Bar · Pasticceria</span>
+                </span>
+            </a>
 
-    <header class="navbar" id="navbar">
+            <nav>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#chi-siamo">Chi siamo</a></li>
+                    <li><a href="#gallery">Galleria</a></li>
+                    <li><a href="#social">Social</a></li>
+                    <li><a href="#contatti">Contatti</a></li>
+                    <li><a href="#contatti" class="nav-button">Scrivici</a></li>
+                </ul>
+            </nav>
 
-        <a href="#home" class="logo">
-            Aria Dolce
-        </a>
-
-        <button class="menu-toggle" id="menuToggle" aria-label="Apri menu">
-            ☰
-        </button>
-
-        <nav>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#chi-siamo">Chi siamo</a></li>
-                <li><a href="#gallery">Galleria</a></li>
-                <li><a href="#contatti">Contatti</a></li>
-                <li>
-                    <a href="tel:+393935825662" class="nav-button">
-                        Chiama
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
+            <button class="menu-toggle" id="menuToggle" aria-label="Apri menu">☰</button>
+        </div>
     </header>
 
-
-    <!-- =========================
-         HERO
-    ========================== -->
-
     <main>
-
-        <section class="hero" id="home">
-
-            <div class="hero-content">
-
-                <div class="hero-small">
-                    Bar · Pasticceria · Roma
-                </div>
-
-                <h1>
-                    Aria <span>Dolce</span>
-                </h1>
-
-                <p class="hero-tagline">
-                    Cornetti artigianali e dolci freschi
-                </p>
-
-                <div class="hero-buttons">
-
-                    <a href="#contatti" class="btn btn-primary">
-                        Vieni a trovarci
-                    </a>
-
-                    <a href="tel:+393935825662" class="btn btn-outline">
-                        Chiamaci
-                    </a>
-
-                </div>
-
-            </div>
-
-            <a href="#chi-siamo" class="scroll-down">
-                Scopri di più ↓
-            </a>
-
-        </section>
-
-
-        <!-- =========================
-             CHI SIAMO
-        ========================== -->
-
-        <section class="about" id="chi-siamo">
-
-            <div class="about-grid">
-
-                <div class="about-image">
-                    <!-- Inserire qui immagine -->
-                </div>
-
-                <div class="about-content">
-
-                    <div class="section-label">
-                        La nostra storia
-                    </div>
-
-                    <h2 class="section-title">
-                        Il piacere di iniziare bene la giornata.
-                    </h2>
-
-                    <p class="section-text">
-                        Aria Dolce è il luogo dove il profumo del caffè
-                        appena fatto incontra la bontà della pasticceria
-                        italiana.
+        <section class="hero grain" id="home">
+            <div class="container hero-inner">
+                <div class="hero-copy">
+                    <div class="eyebrow">Cornetti artigianali e dolci freschi</div>
+                    <h1 class="hero-title">
+                        L'arte della pasticceria,<br><em>ogni mattina.</em>
+                    </h1>
+                    <p class="hero-text">
+                        Cornetti sfornati all'alba, dolci freschi e caffè espresso nel cuore di Roma. Un rituale quotidiano fatto di burro, zucchero e pazienza.
                     </p>
-
-                    <p class="section-text">
-                        Ogni giorno ti aspettiamo con un'atmosfera
-                        accogliente, prodotti freschi e il gusto semplice
-                        delle cose fatte con passione.
-                    </p>
-
-                    <div class="highlight">
-                        "Un piccolo momento di dolcezza, ogni giorno."
-                    </div>
-
+                    <a href="#contatti" class="hero-cta">Prenota o scrivici <span class="arrow">→</span></a>
                 </div>
 
+                <div class="hero-visual">
+                    <img class="hero-photo" src="images/1786740281306.jpg" alt="Cornetti e dolci freschi">
+                    <div class="hero-badge">
+                        <span>Sfornato alle</span>
+                        <strong>06:00</strong>
+                    </div>
+                </div>
             </div>
-
         </section>
 
-
-        <!-- =========================
-             GALLERY
-        ========================== -->
-
-        <section class="gallery" id="gallery">
-
-            <div class="gallery-header">
-
-                <div class="section-label">
-                    Aria Dolce
+        <section class="about grain" id="chi-siamo">
+            <div class="container about-inner">
+                <div>
+                    <div class="eyebrow" style="color: var(--gold);">Chi siamo</div>
+                    <h2 class="story-title">Una bottega di quartiere dove il mattino ha il profumo del <strong>burro</strong> e del <strong>caffè</strong> appena macinato</h2>
                 </div>
 
-                <h2 class="section-title">
-                    Un'atmosfera da vivere.
-                </h2>
-
-                <p class="section-text">
-                    Scopri il nostro ambiente e lasciati conquistare
-                    dall'atmosfera di Aria Dolce.
-                </p>
-
+                <div class="story-card">
+                    <img src="images/1786740280222.jpg" alt="Pasticceria fresca Aria Dolce">
+                </div>
             </div>
-
-            <div class="gallery-grid">
-
-                <div class="gallery-item"></div>
-                <div class="gallery-item"></div>
-                <div class="gallery-item"></div>
-                <div class="gallery-item"></div>
-                <div class="gallery-item"></div>
-
-            </div>
-
         </section>
 
-
-        <!-- =========================
-             EXPERIENCE
-        ========================== -->
-
-        <section class="experience">
-
-            <div class="experience-inner">
-
-                <div class="section-label">
-                    Per ogni momento
+        <section class="gallery grain" id="gallery">
+            <div class="container">
+                <div class="gallery-head">
+                    <h2 class="gallery-title">Galleria</h2>
+                    <div class="gallery-sub">Dal bancone al palato</div>
                 </div>
 
-                <h2 class="section-title">
-                    Semplice. Fresco. Italiano.
-                </h2>
-
-                <p class="section-text">
-                    Dalla colazione del mattino alla pausa caffè,
-                    Aria Dolce è il posto giusto per concedersi
-                    un momento di piacere.
-                </p>
-
-                <div class="features">
-
-                    <div class="feature">
-
-                        <div class="feature-icon">
-                            ☕
-                        </div>
-
-                        <h3>
-                            Il buon caffè
-                        </h3>
-
-                        <p>
-                            Il piacere di un caffè italiano
-                            da gustare in qualsiasi momento
-                            della giornata.
-                        </p>
-
-                    </div>
-
-
-                    <div class="feature">
-
-                        <div class="feature-icon">
-                            ✦
-                        </div>
-
-                        <h3>
-                            Pasticceria fresca
-                        </h3>
-
-                        <p>
-                            Cornetti artigianali e dolci freschi
-                            per iniziare la giornata con qualcosa
-                            di speciale.
-                        </p>
-
-                    </div>
-
-
-                    <div class="feature">
-
-                        <div class="feature-icon">
-                            ♥
-                        </div>
-
-                        <h3>
-                            Sempre con noi
-                        </h3>
-
-                        <p>
-                            Siamo aperti tutti i giorni,
-                            dalla prima colazione fino alla sera.
-                        </p>
-
-                    </div>
-
+                <div class="gallery-grid">
+                    <div class="frame large"><div class="photo" style="background-image: url('images/1786740279913.jpg');"></div></div>
+                    <div class="frame"><div class="photo" style="background-image: url('images/1786740280423.jpg');"></div></div>
+                    <div class="frame"><div class="photo" style="background-image: url('images/1786740280222.jpg');"></div></div>
+                    <div class="frame"><div class="photo" style="background-image: url('images/1786740280660.jpg');"></div></div>
+                    <div class="frame"><div class="photo" style="background-image: url('images/1786740281306.jpg');"></div></div>
                 </div>
-
             </div>
-
         </section>
-
-
-        <!-- =========================
-             CONTATTI
-        ========================== -->
 
         <section class="contact" id="contatti">
+            <div class="container contact-wrap">
+                <div>
+                    <div class="eyebrow" style="color: var(--caramel);">Contatti</div>
+                    <h2 class="contact-heading">Vieni a<br><em>trovarci</em></h2>
 
-            <div class="contact-grid">
+                    <div class="contact-list">
+                        <div class="contact-row"><span class="label">Indirizzo</span><span class="leader"></span><span class="value">Via di Giardinetti 100, 00133 Roma</span></div>
+                        <div class="contact-row"><span class="label">Telefono</span><span class="leader"></span><span class="value">+39 393 582 5662</span></div>
+                        <div class="contact-row"><span class="label">Orari</span><span class="leader"></span><span class="value">Tutti i giorni 06:00 – 23:00</span></div>
+                        <div class="contact-row"><span class="label">PEC</span><span class="leader"></span><span class="value">ariadolce@pec.it</span></div>
+                        <div class="contact-row"><span class="label">Email</span><span class="leader"></span><span class="value">ariadolce13@gmail.com</span></div>
+                        <div class="contact-row"><span class="label">P. IVA</span><span class="leader"></span><span class="value">18589361007</span></div>
+                    </div>
+
+                    <div class="map-box">
+                        <iframe
+                            title="Mappa Aria Dolce"
+                            src="https://www.google.com/maps?q=Via%20di%20Giardinetti%20100%2C%2000133%20Roma&output=embed"
+                            width="100%"
+                            height="100%"
+                            style="border:0;"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                    </div>
+                </div>
 
                 <div>
+                    <p class="cta-text">Hai una richiesta, vuoi ordinare una torta o organizzare una colazione di gruppo? Contattaci.</p>
 
-                    <div class="section-label">
-                        Vieni a trovarci
-                    </div>
-
-                    <h2 class="section-title">
-                        Ci trovi a Roma.
-                    </h2>
-
-                    <p class="section-text">
-                        Passa a trovarci per una colazione,
-                        un caffè o una pausa dolce.
-                    </p>
-
-
-                    <div class="contact-info">
-
-                        <div class="contact-item">
-
-                            <div class="contact-icon">
-                                📍
-                            </div>
-
-                            <div>
-                                <strong>Indirizzo</strong>
-                                <span>
-                                    Via di Giardinetti 100,<br>
-                                    00133 Roma
-                                </span>
-                            </div>
-
+                    <form id="contactForm" class="contact-form">
+                        <div class="field">
+                            <label for="nome">Nome</label>
+                            <input id="nome" type="text" placeholder="Il tuo nome" required>
                         </div>
 
-
-                        <div class="contact-item">
-
-                            <div class="contact-icon">
-                                🕐
-                            </div>
-
-                            <div>
-                                <strong>Orari</strong>
-                                <span>
-                                    Aperti tutti i giorni<br>
-                                    06:00 – 23:00
-                                </span>
-                            </div>
-
+                        <div class="field">
+                            <label for="email">Email</label>
+                            <input id="email" type="email" placeholder="nome@email.it" required>
                         </div>
 
-
-                        <div class="contact-item">
-
-                            <div class="contact-icon">
-                                ☎
-                            </div>
-
-                            <div>
-                                <strong>Telefono</strong>
-                                <a href="tel:+393935825662">
-                                    +39 393 582 5662
-                                </a>
-                            </div>
-
+                        <div class="field">
+                            <label for="telefono">Telefono</label>
+                            <input id="telefono" type="tel" placeholder="+39 ...">
                         </div>
 
-                    </div>
+                        <div class="field">
+                            <label for="messaggio">Messaggio</label>
+                            <textarea id="messaggio" rows="4" placeholder="Scrivi qui..." required></textarea>
+                        </div>
 
+                        <div class="submit-row">
+                            <button class="submit-btn" type="submit">Invia richiesta <span class="arrow">→</span></button>
+                        </div>
+                    </form>
                 </div>
-
-
-                <div class="map-placeholder">
-
-                    <div class="map-placeholder-content">
-
-                        <h3>
-                            Aria Dolce
-                        </h3>
-
-                        <p>
-                            Via di Giardinetti 100<br>
-                            00133 Roma
-                        </p>
-
-                        <br>
-
-                        <a
-                            href="https://www.google.com/maps/search/?api=1&query=Via+di+Giardinetti+100,+00133+Roma"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="btn btn-primary"
-                        >
-                            Apri su Google Maps
-                        </a>
-
-                    </div>
-
-                </div>
-
             </div>
-
         </section>
-
-
-        <!-- =========================
-             INSTAGRAM
-        ========================== -->
-
-        <section class="instagram">
-
-            <div class="section-label">
-                Seguici
-            </div>
-
-            <h2>
-                @ariadolce.roma
-            </h2>
-
-            <p>
-                Scopri le nostre giornate, le novità e tutta
-                la dolcezza di Aria Dolce.
-            </p>
-
-            <a
-                href="https://www.instagram.com/ariadolce.roma/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="instagram-button"
-            >
-                Instagram →
-            </a>
-
-        </section>
-
     </main>
 
-
-    <!-- =========================
-         FOOTER
-    ========================== -->
-
     <footer>
-
-        <div class="footer-inner">
-
-            <div class="footer-logo">
-                Aria Dolce · Bar & Pasticceria
+        <div class="container footer-inner">
+            <div>
+                <div class="footer-brand">
+                    <span class="brand-mark">
+                        <img src="images/Logo.jpg.jpeg" alt="Logo Aria Dolce">
+                    </span>
+                    <span class="brand-name" style="color: var(--paper); font-size: clamp(2rem, 3vw, 2.6rem);">Aria Dolce</span>
+                </div>
+                <p class="footer-info">Cornetti artigianali e dolci freschi. Aperti tutti i giorni per una colazione, un caffè o una pausa dolce.</p>
+                <div class="footer-social">◎ @ariadolce.roma</div>
             </div>
 
-            <div class="footer-copy">
-                © 2026 Aria Dolce. Tutti i diritti riservati.
+            <div>
+                <div class="footer-heading">Naviga</div>
+                <ul class="footer-links">
+                    <li><a href="#chi-siamo">Chi siamo</a></li>
+                    <li><a href="#gallery">Galleria</a></li>
+                    <li><a href="#social">Social</a></li>
+                    <li><a href="#contatti">Contatti</a></li>
+                </ul>
             </div>
 
+            <div>
+                <div class="footer-heading">Dove &amp; quando</div>
+                <div class="footer-contact">
+                    <div>Via di Giardinetti 100, 00133 Roma</div>
+                    <div>+39 393 582 5662</div>
+                    <div>ariadolce@pec.it</div>
+                    <div>ariadolce13@gmail.com</div>
+                    <div>P. IVA: 18589361007</div>
+                </div>
+            </div>
         </div>
 
+        <div class="container footer-bottom">
+            <span>© 2026 Aria Dolce · Bar &amp; Pasticceria · Roma</span>
+            <span>Fatto con burro &amp; caffè</span>
+        </div>
     </footer>
 
-
-    <!-- =========================
-         JAVASCRIPT
-    ========================== -->
-
     <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+        const contactForm = document.getElementById('contactForm');
 
-        const navbar = document.getElementById("navbar");
-        const menuToggle = document.getElementById("menuToggle");
-        const navLinks = document.getElementById("navLinks");
-
-        // Navbar background on scroll
-        window.addEventListener("scroll", () => {
-
-            if (window.scrollY > 50) {
-                navbar.classList.add("scrolled");
-            } else {
-                navbar.classList.remove("scrolled");
-            }
-
-        });
-
-
-        // Mobile menu
-        menuToggle.addEventListener("click", () => {
-            navLinks.classList.toggle("active");
-        });
-
-
-        // Close mobile menu after clicking a link
-        document.querySelectorAll(".nav-links a").forEach(link => {
-
-            link.addEventListener("click", () => {
-                navLinks.classList.remove("active");
+        if (menuToggle && navLinks) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
             });
 
-        });
+            document.querySelectorAll('.nav-links a').forEach(item => {
+                item.addEventListener('click', () => navLinks.classList.remove('active'));
+            });
+        }
 
+        if (contactForm) {
+            contactForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const nome = document.getElementById('nome').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const telefono = document.getElementById('telefono').value.trim();
+                const messaggio = document.getElementById('messaggio').value.trim();
+
+                const subject = encodeURIComponent('Nuova richiesta da sito web');
+                const body = encodeURIComponent(
+                    'Nome: ' + nome + '\n' +
+                    'Email: ' + email + '\n' +
+                    'Telefono: ' + (telefono || 'Non specificato') + '\n\n' +
+                    'Messaggio:\n' + messaggio
+                );
+
+                window.location.href = 'mailto:ariadolce@pec.it?cc=ariadolce13@gmail.com&subject=' + subject + '&body=' + body;
+            });
+        }
     </script>
 
 </body>
 </html>
+
