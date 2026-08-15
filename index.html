@@ -200,43 +200,94 @@
             font-size: 1.1rem;
         }
 
-        .hero-visual { position: relative; display: flex; justify-content: center; }
+        /* Hero visual — cornice elegante sfalsata dietro la foto */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0 34px;
+        }
+
+        .hero-photo-wrap {
+            position: relative;
+            width: min(100%, 460px);
+        }
 
         .hero-photo {
-            width: min(100%, 460px);
+            position: relative;
+            z-index: 1;
+            width: 100%;
             height: min(74vh, 600px);
             object-fit: cover;
             border-radius: 220px 220px 6px 6px;
             border: 1px solid rgba(244,233,216,0.16);
             box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            transition: transform 0.4s cubic-bezier(.2,.8,.2,1), box-shadow 0.4s ease;
         }
 
-        .hero-badge {
+        .hero-photo-wrap:hover .hero-photo {
+            transform: scale(1.045) translateY(-8px);
+            box-shadow: 0 40px 76px rgba(0,0,0,0.5);
+        }
+
+        .hero-seal {
             position: absolute;
-            left: -6px;
-            bottom: 40px;
-            width: 118px; height: 118px;
-            border-radius: 50%;
-            background: var(--caramel);
-            border: 2px dashed rgba(255,250,241,0.5);
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            text-align: center;
-            color: var(--paper);
+            z-index: 2;
+            left: -22px;
+            bottom: 54px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(20, 13, 9, 0.92);
+            border: 1px solid rgba(211,164,99,0.5);
+            border-radius: 999px;
+            padding: 12px 22px 12px 14px;
             box-shadow: 0 18px 34px rgba(0,0,0,0.35);
-            transform: rotate(-8deg);
         }
-        .hero-badge span {
-            font-size: 0.56rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: rgba(255,250,241,0.85);
+        .hero-seal .seal-icon {
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            background: var(--gold);
+            color: var(--espresso-deep);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
         }
-        .hero-badge strong {
+        .hero-seal .seal-copy {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.25;
+        }
+        .hero-seal .seal-title {
             font-family: "Fraunces", serif;
-            font-size: 2rem;
-            line-height: 1;
-            margin-top: 6px;
+            font-style: italic;
+            font-weight: 500;
+            font-size: 1.02rem;
+            color: var(--paper);
+            white-space: nowrap;
+        }
+        .hero-seal .seal-sub {
+            font-size: 0.62rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 700;
+            margin-top: 2px;
+        }
+        .hero-seal-link {
+            cursor: pointer;
+            transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+        }
+        .hero-seal-link:hover {
+            transform: translateY(-3px);
+            background: var(--caramel);
+            border-color: transparent;
+        }
+        .hero-seal-link .seal-icon {
+            transition: transform 0.25s ease;
+        }
+        .hero-seal-link:hover .seal-icon {
+            transform: translateX(2px);
         }
 
         .about {
@@ -559,6 +610,35 @@
             letter-spacing: 0.18em; text-transform: uppercase;
         }
 
+        .dev-signature {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding: 18px 0 26px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            text-align: center;
+            color: rgba(244,233,216,0.4);
+            font-size: 0.7rem;
+            letter-spacing: 0.06em;
+        }
+        .dev-signature .dev-name {
+            font-family: "Fraunces", serif;
+            font-style: italic;
+            color: var(--gold);
+            font-size: 0.82rem;
+            letter-spacing: 0.02em;
+        }
+        .dev-signature a {
+            color: rgba(244,233,216,0.55);
+            transition: color 0.2s ease;
+        }
+        .dev-signature a:hover { color: var(--gold); }
+        .dev-signature .dot {
+            color: rgba(244,233,216,0.25);
+        }
+
         @media (max-width: 1000px) {
             .hero-inner, .about-inner, .contact-wrap, .footer-inner { grid-template-columns: 1fr; }
             .hero-copy { padding-bottom: 40px; }
@@ -585,6 +665,7 @@
             .contact-row { flex-wrap: wrap; }
             .contact-row .leader { display: none; }
             .footer-bottom { letter-spacing: 0.06em; }
+            .hero-seal { left: 12px; bottom: 24px; }
         }
     </style>
 </head>
@@ -627,14 +708,17 @@
                     <p class="hero-text">
                         Cornetti sfornati all'alba, dolci freschi e caffè espresso nel cuore di Roma. Un rituale quotidiano fatto di burro, zucchero e pazienza.
                     </p>
-                    <a href="#contatti" class="hero-cta">Prenota o scrivici <span class="arrow">→</span></a>
                 </div>
 
                 <div class="hero-visual">
-                    <img class="hero-photo" src="images/1786740281306.jpg" alt="Cornetti e dolci freschi">
-                    <div class="hero-badge">
-                        <span>Sfornato alle</span>
-                        <strong>06:00</strong>
+                    <div class="hero-photo-wrap">
+                        <img class="hero-photo" src="images/1786740281306.jpg" alt="Cornetti e dolci freschi">
+                        <a href="#contatti" class="hero-seal hero-seal-link">
+                            <span class="seal-icon">→</span>
+                            <span class="seal-copy">
+                                <span class="seal-title">Prenota o scrivici</span>
+                            </span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -796,6 +880,15 @@
         <div class="container footer-bottom">
             <span>©️ 2026 Aria Dolce · Bar &amp; Pasticceria · Roma</span>
             <span>Fatto con burro &amp; caffè</span>
+        </div>
+
+        <div class="dev-signature">
+            <span>Sito web a cura di</span>
+            <span class="dev-name">Mahdin</span>
+            <span class="dot">·</span>
+            <a href="mailto:mahdinislamm22@gmail.com">mahdinislamm22@gmail.com</a>
+            <span class="dot">·</span>
+            <a href="https://www.instagram.com/_mahdinnnn" target="_blank" rel="noopener noreferrer">@_mahdinnnn</a>
         </div>
     </footer>
 
