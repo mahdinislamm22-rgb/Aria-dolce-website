@@ -12,16 +12,17 @@
 
     <style>
         :root {
-            --cream: #f4e9d8;
-            --cream-soft: #efe0c8;
+            --cream: #0e2e29;
+            --cream-soft: #123a42;
             --paper: #fffaf1;
             --espresso: #251811;
             --espresso-deep: #140d09;
             --cacao: #6e4b34;
             --caramel: #b1743f;
             --gold: #d3a463;
-            --ink: #2a1c13;
-            --line: rgba(37, 24, 17, 0.16);
+            --ink: #f4e9d8;
+            --line: rgba(244, 233, 216, 0.16);
+            --detail-green: #4f9d72;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -64,7 +65,7 @@
             gap: 20px;
         }
 
-        .brand { display: inline-flex; align-items: center; gap: 14px; color: var(--cream); }
+        .brand { display: inline-flex; align-items: center; gap: 14px; color: var(--paper); }
 
         .brand-mark {
             width: 62px; height: 62px;
@@ -118,7 +119,7 @@
             display: none;
             background: transparent;
             border: 1px solid rgba(244,233,216,0.35);
-            color: var(--cream);
+            color: var(--paper);
             width: 42px; height: 42px;
             border-radius: 50%;
             font-size: 1.4rem;
@@ -139,7 +140,7 @@
             gap: 50px;
         }
 
-        .hero-copy { color: var(--cream); padding-bottom: 70px; }
+        .hero-copy { color: var(--paper); padding-bottom: 70px; }
 
         .eyebrow {
             letter-spacing: 0.3em;
@@ -183,7 +184,7 @@
             gap: 14px;
             background: transparent;
             border: 1px solid rgba(244,233,216,0.4);
-            color: var(--cream);
+            color: var(--paper);
             border-radius: 999px;
             padding: 0.9rem 1.7rem 0.9rem 1.9rem;
             font-weight: 600;
@@ -301,15 +302,107 @@
             padding: 10px;
             border-radius: 4px;
             box-shadow: 0 22px 46px rgba(0,0,0,0.35);
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(.2,.8,.2,1), box-shadow 0.4s ease;
         }
+        .frame:hover {
+            transform: translateY(-8px) rotate(-0.6deg);
+            box-shadow: 0 34px 64px rgba(0,0,0,0.5);
+        }
+        .frame:nth-child(even):hover { transform: translateY(-8px) rotate(0.6deg); }
         .frame .photo {
             height: 330px;
             border-radius: 2px;
             background-size: cover;
             background-position: center;
+            transition: transform 0.7s cubic-bezier(.2,.8,.2,1), filter 0.5s ease;
+        }
+        .frame:hover .photo {
+            transform: scale(1.12);
+            filter: saturate(1.15) brightness(1.03);
         }
         .frame.large { grid-row: span 2; }
         .frame.large .photo { height: 100%; min-height: 700px; }
+
+        /* Social section */
+        .social {
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(120% 140% at 15% 0%, #1d5744 0%, #123c30 45%, #0b2621 100%);
+            padding: 100px 0 108px;
+        }
+        .social::after {
+            content: "";
+            position: absolute;
+            width: 480px; height: 480px;
+            right: -160px; top: -160px;
+            border-radius: 50%;
+            border: 1px dashed rgba(244,233,216,0.14);
+            pointer-events: none;
+        }
+        .social::before {
+            content: "";
+            position: absolute;
+            width: 280px; height: 280px;
+            left: -100px; bottom: -120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(211,164,99,0.12) 0%, rgba(211,164,99,0) 70%);
+            pointer-events: none;
+        }
+        .social-inner {
+            position: relative; z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 20px;
+        }
+        .social-title {
+            font-family: "Fraunces", serif;
+            font-weight: 500;
+            font-style: italic;
+            font-size: clamp(2.6rem, 5vw, 4.6rem);
+            color: var(--paper);
+            letter-spacing: -0.01em;
+        }
+        .social-text {
+            color: rgba(244,233,216,0.68);
+            max-width: 460px;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 12px;
+        }
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(244,233,216,0.07);
+            border: 1px solid rgba(244,233,216,0.28);
+            color: var(--paper);
+            padding: 0.95rem 1.9rem;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.98rem;
+            transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease, color 0.25s ease;
+        }
+        .social-btn svg { width: 21px; height: 21px; flex-shrink: 0; }
+        .social-btn:hover { transform: translateY(-3px); }
+        .social-btn.instagram:hover {
+            background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #515bd4);
+            border-color: transparent;
+            color: #fff;
+        }
+        .social-btn.facebook:hover {
+            background: #1877f2;
+            border-color: transparent;
+            color: #fff;
+        }
 
         .contact { background: var(--cream); padding: 100px 0 110px; }
         .contact-wrap {
@@ -324,7 +417,7 @@
             font-size: clamp(3rem, 5vw, 5.2rem);
             line-height: 0.96;
             letter-spacing: -0.02em;
-            color: var(--espresso);
+            color: var(--cacao);
             margin-top: 10px;
         }
         .contact-heading em { font-style: italic; font-weight: 400; color: var(--caramel); }
@@ -344,7 +437,7 @@
             font-size: 0.68rem;
             letter-spacing: 0.16em;
             text-transform: uppercase;
-            color: var(--cacao);
+            color: var(--paper);
             font-weight: 700;
             white-space: nowrap;
         }
@@ -355,7 +448,7 @@
         }
         .contact-row .value {
             font-size: 1.02rem;
-            color: var(--ink);
+            color: var(--detail-green);
             white-space: nowrap;
             font-weight: 500;
         }
@@ -374,7 +467,7 @@
             font-size: clamp(1.35rem, 2vw, 1.7rem);
             font-style: italic;
             font-weight: 400;
-            color: var(--cacao);
+            color: var(--paper);
             margin: 6px 0 30px;
             max-width: 520px;
             line-height: 1.4;
@@ -384,7 +477,7 @@
         .field { display: grid; gap: 9px; }
         .field label {
             letter-spacing: 0.24em; text-transform: uppercase;
-            font-size: 0.7rem; color: var(--cacao); font-weight: 700;
+            font-size: 0.7rem; color: var(--paper); font-weight: 700;
         }
         .field input, .field textarea {
             width: 100%; background: transparent; border: none;
@@ -394,7 +487,7 @@
             transition: border-color 0.2s ease;
         }
         .field input:focus, .field textarea:focus { border-color: var(--caramel); }
-        .field input::placeholder, .field textarea::placeholder { color: rgba(42,28,19,0.4); }
+        .field input::placeholder, .field textarea::placeholder { color: rgba(244,233,216,0.4); }
 
         .submit-row { display: flex; justify-content: flex-end; margin-top: 4px; }
         .form-status {
@@ -408,14 +501,14 @@
         }
         .form-status.visible { display: block; }
         .form-status.success {
-            background: rgba(28, 93, 71, 0.1);
-            border: 1px solid rgba(28, 93, 71, 0.22);
-            color: #1b5a45;
+            background: rgba(90, 200, 160, 0.15);
+            border: 1px solid rgba(90, 200, 160, 0.35);
+            color: #9fe8cb;
         }
         .form-status.error {
-            background: rgba(131, 47, 47, 0.08);
-            border: 1px solid rgba(131, 47, 47, 0.2);
-            color: #7d2f2f;
+            background: rgba(220, 120, 120, 0.15);
+            border: 1px solid rgba(220, 120, 120, 0.35);
+            color: #f3a5a5;
         }
         .submit-btn {
             border: none; background: var(--espresso); color: var(--paper);
@@ -577,6 +670,31 @@
             </div>
         </section>
 
+        <section class="social grain" id="social">
+            <div class="container social-inner">
+                <div class="eyebrow" style="color: var(--gold);">Seguici</div>
+                <h2 class="social-title">@ariadolce.roma</h2>
+                <p class="social-text">Cornetti caldi, storie dal bancone e il profumo del mattino — ogni giorno sui nostri social.</p>
+                <div class="social-links">
+                    <a class="social-btn instagram" href="https://www.instagram.com/ariadolce.roma" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="3" width="18" height="18" rx="5.5" stroke="currentColor" stroke-width="1.8"/>
+                            <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/>
+                            <circle cx="17.3" cy="6.7" r="1.1" fill="currentColor"/>
+                        </svg>
+                        Instagram
+                    </a>
+                    <a class="social-btn facebook" href="https://www.facebook.com/ariadolce.roma" target="_blank" rel="noopener noreferrer">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="9.2" stroke="currentColor" stroke-width="1.8"/>
+                            <path d="M13.6 9.1h1.7V7c-.5-.07-1.2-.12-2-.12-2.05 0-3.35 1.24-3.35 3.5v1.85H7.8v2.4h2.15V19h2.5v-4.37h2.1l.33-2.4h-2.43v-1.6c0-.7.2-1.13 1.15-1.13z" fill="currentColor"/>
+                        </svg>
+                        Facebook
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <section class="contact" id="contatti">
             <div class="container contact-wrap">
                 <div>
@@ -608,7 +726,7 @@
                 <div>
                     <p class="cta-text">Hai una richiesta, vuoi ordinare una torta o organizzare una colazione di gruppo? Contattaci.</p>
 
-                    <form id="contactForm" action="https://formspree.io/f/xeajlqel" method="POST" class="contact-form">
+                    <form id="contactForm" action="https://formspree.io/f/xkjwvgpj" method="POST" class="contact-form">
                         <div class="field">
                             <label for="name">Nome</label>
                             <input id="name" name="name" type="text" placeholder="Il tuo nome" required>
@@ -650,7 +768,7 @@
                     <span class="brand-name" style="color: var(--paper); font-size: clamp(2rem, 3vw, 2.6rem);">Aria Dolce</span>
                 </div>
                 <p class="footer-info">Cornetti artigianali e dolci freschi. Aperti tutti i giorni per una colazione, un caffè o una pausa dolce.</p>
-                <div class="footer-social">◎ @ariadolce.roma</div>
+                <a class="footer-social" href="https://www.instagram.com/ariadolce.roma" target="_blank" rel="noopener noreferrer">◎ @ariadolce.roma</a>
             </div>
 
             <div>
@@ -676,7 +794,7 @@
         </div>
 
         <div class="container footer-bottom">
-            <span>© 2026 Aria Dolce · Bar &amp; Pasticceria · Roma</span>
+            <span>©️ 2026 Aria Dolce · Bar &amp; Pasticceria · Roma</span>
             <span>Fatto con burro &amp; caffè</span>
         </div>
     </footer>
@@ -721,4 +839,3 @@
 
 </body>
 </html>
-
