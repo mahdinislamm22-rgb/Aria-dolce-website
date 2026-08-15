@@ -397,6 +397,26 @@
         .field input::placeholder, .field textarea::placeholder { color: rgba(42,28,19,0.4); }
 
         .submit-row { display: flex; justify-content: flex-end; margin-top: 4px; }
+        .form-status {
+            display: none;
+            margin-top: 18px;
+            padding: 0.9rem 1rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            line-height: 1.5;
+        }
+        .form-status.visible { display: block; }
+        .form-status.success {
+            background: rgba(28, 93, 71, 0.1);
+            border: 1px solid rgba(28, 93, 71, 0.22);
+            color: #1b5a45;
+        }
+        .form-status.error {
+            background: rgba(131, 47, 47, 0.08);
+            border: 1px solid rgba(131, 47, 47, 0.2);
+            color: #7d2f2f;
+        }
         .submit-btn {
             border: none; background: var(--espresso); color: var(--paper);
             border-radius: 999px; padding: 0.95rem 2rem 0.95rem 1.6rem;
@@ -535,7 +555,7 @@
                 </div>
 
                 <div class="story-card">
-                    <img src="images/1786740280222.jpg" alt="Pasticceria fresca Aria Dolce">
+                    <img src="images/banner2.jpg.jpeg" alt="Pasticceria fresca Aria Dolce">
                 </div>
             </div>
         </section>
@@ -548,11 +568,11 @@
                 </div>
 
                 <div class="gallery-grid">
-                    <div class="frame large"><div class="photo" style="background-image: url('images/1786740279913.jpg');"></div></div>
+                    <div class="frame large"><div class="photo" style="background-image: url('images/20023.jpg');"></div></div>
                     <div class="frame"><div class="photo" style="background-image: url('images/1786740280423.jpg');"></div></div>
-                    <div class="frame"><div class="photo" style="background-image: url('images/1786740280222.jpg');"></div></div>
-                    <div class="frame"><div class="photo" style="background-image: url('images/1786740280660.jpg');"></div></div>
-                    <div class="frame"><div class="photo" style="background-image: url('images/1786740281306.jpg');"></div></div>
+                    <div class="frame"><div class="photo" style="background-image: url('images/1786740280861.jpg');"></div></div>
+                    <div class="frame"><div class="photo" style="background-image: url('images/1786740280547.jpg');"></div></div>
+                    <div class="frame"><div class="photo" style="background-image: url('images/1786740281227.jpg');"></div></div>
                 </div>
             </div>
         </section>
@@ -588,30 +608,32 @@
                 <div>
                     <p class="cta-text">Hai una richiesta, vuoi ordinare una torta o organizzare una colazione di gruppo? Contattaci.</p>
 
-                    <form id="contactForm" class="contact-form">
+                    <form id="contactForm" action="https://formspree.io/f/xeajlqel" method="POST" class="contact-form">
                         <div class="field">
-                            <label for="nome">Nome</label>
-                            <input id="nome" type="text" placeholder="Il tuo nome" required>
+                            <label for="name">Nome</label>
+                            <input id="name" name="name" type="text" placeholder="Il tuo nome" required>
                         </div>
 
                         <div class="field">
                             <label for="email">Email</label>
-                            <input id="email" type="email" placeholder="nome@email.it" required>
+                            <input id="email" name="email" type="email" placeholder="nome@email.it" required>
                         </div>
 
                         <div class="field">
-                            <label for="telefono">Telefono</label>
-                            <input id="telefono" type="tel" placeholder="+39 ...">
+                            <label for="phone">Telefono</label>
+                            <input id="phone" name="phone" type="tel" placeholder="+39 ...">
                         </div>
 
                         <div class="field">
-                            <label for="messaggio">Messaggio</label>
-                            <textarea id="messaggio" rows="4" placeholder="Scrivi qui..." required></textarea>
+                            <label for="message">Messaggio</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Scrivi qui..." required></textarea>
                         </div>
 
                         <div class="submit-row">
                             <button class="submit-btn" type="submit">Invia richiesta <span class="arrow">→</span></button>
                         </div>
+
+                        <div id="formStatus" class="form-status" aria-live="polite"></div>
                     </form>
                 </div>
             </div>
@@ -663,6 +685,13 @@
         const menuToggle = document.getElementById('menuToggle');
         const navLinks = document.getElementById('navLinks');
         const contactForm = document.getElementById('contactForm');
+        const formStatus = document.getElementById('formStatus');
+
+        function setFormStatus(type, message) {
+            if (!formStatus) return;
+            formStatus.className = 'form-status visible ' + type;
+            formStatus.textContent = message;
+        }
 
         if (menuToggle && navLinks) {
             menuToggle.addEventListener('click', () => {
@@ -676,22 +705,16 @@
 
         if (contactForm) {
             contactForm.addEventListener('submit', function (event) {
-                event.preventDefault();
-
-                const nome = document.getElementById('nome').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const telefono = document.getElementById('telefono').value.trim();
-                const messaggio = document.getElementById('messaggio').value.trim();
-
-                const subject = encodeURIComponent('Nuova richiesta da sito web');
-                const body = encodeURIComponent(
-                    'Nome: ' + nome + '\n' +
-                    'Email: ' + email + '\n' +
-                    'Telefono: ' + (telefono || 'Non specificato') + '\n\n' +
-                    'Messaggio:\n' + messaggio
-                );
-
-                window.location.href = 'mailto:ariadolce@pec.it?cc=ariadolce13@gmail.com&subject=' + subject + '&body=' + body;
+                const submitButton = contactForm.querySelector('button[type="submit"]');
+                const originalText = submitButton.innerHTML;
+                
+                submitButton.disabled = true;
+                submitButton.innerHTML = 'Invio in corso...';
+                setFormStatus('success', 'Invio in corso...');
+                
+                setTimeout(() => {
+                    setFormStatus('success', 'Messaggio inviato con successo. Ti risponderemo al più presto.');
+                }, 1000);
             });
         }
     </script>
