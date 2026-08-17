@@ -610,6 +610,38 @@
             letter-spacing: 0.18em; text-transform: uppercase;
         }
 
+        .portfolio-pill {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0 18px;
+        }
+        .portfolio-pill a {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0.9rem 1.4rem;
+            border-radius: 999px;
+            background: linear-gradient(135deg, rgba(211,164,99,0.14), rgba(79,157,114,0.14));
+            border: 1px solid rgba(211,164,99,0.35);
+            color: var(--paper);
+            font-size: 0.75rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-weight: 700;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+            box-shadow: 0 18px 32px rgba(11,10,18,0.18);
+        }
+        .portfolio-pill a:hover {
+            transform: translateY(-2px);
+            border-color: rgba(244,233,216,0.5);
+            box-shadow: 0 24px 42px rgba(11,10,18,0.28);
+        }
+        .portfolio-pill .mini-dot {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 18px rgba(211,164,99,0.9);
+        }
+
         .dev-signature {
             border-top: 1px solid rgba(255,255,255,0.06);
             padding: 18px 0 26px;
@@ -883,12 +915,10 @@
         </div>
 
         <div class="dev-signature">
-            <span>Sito web a cura di</span>
+            <span>Sito web creato da</span>
             <span class="dev-name">Mahdin</span>
             <span class="dot">·</span>
-            <a href="mailto:mahdinislamm22@gmail.com">mahdinislamm22@gmail.com</a>
-            <span class="dot">·</span>
-            <a href="https://www.instagram.com/_mahdinnnn" target="_blank" rel="noopener noreferrer">@_mahdinnnn</a>
+            <a href="https://portofolio-m.vercel.app/" target="_blank" rel="noopener noreferrer">Scopri altri dettagli</a>
         </div>
     </footer>
 
